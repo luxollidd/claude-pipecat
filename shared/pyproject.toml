@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cgshared"
+version = "0.1.0"
+description = "Shared utilities for claude-gaming projects"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "elevenlabs>=1.0.0",
+    "python-dotenv",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cgshared*"]
