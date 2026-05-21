@@ -1,3 +1,5 @@
+-e ./shared
+anthropic>=0.40.0
 pipecat-ai[elevenlabs,anthropic,local]
 pyaudio
--e ../../shared
+python-dotenv>=1.0.0
