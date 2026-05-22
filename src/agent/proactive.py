@@ -13,9 +13,10 @@ class ProactiveLoop:
     by injecting text into the Pipecat pipeline's TTS input queue.
     """
 
-    def __init__(self, memory: MemoryStore, tts_queue: asyncio.Queue):
+    def __init__(self, memory: MemoryStore, tts_queue: asyncio.Queue, context=None):
         self.memory = memory
         self.tts_queue = tts_queue
+        self.context = context
         self._running = False
         self._last_interjection_at = 0.0
 
@@ -35,7 +36,7 @@ class ProactiveLoop:
 
             if silence >= SILENCE_LIGHT:
                 try:
-                    text = generate_interjection(self.memory, silence)
+                    text = generate_interjection(self.memory, silence, context=self.context)
                     logger.info(f"[proactive] injecting after {silence:.0f}s silence: {text!r}")
                     await self.tts_queue.put(text)
                     self.memory.add_turn("assistant", text)

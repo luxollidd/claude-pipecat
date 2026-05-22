@@ -37,6 +37,9 @@ def load_env(env_path: str | Path | None = None) -> None:
         key, _, value = line.partition("=")
         key = key.strip()
         value = value.strip().strip('"').strip("'")
+        # strip inline comments (e.g. value #comment)
+        if " #" in value:
+            value = value[:value.index(" #")].strip()
         if key and key not in os.environ:
             os.environ[key] = value
 
